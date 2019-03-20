@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+	
+	<head>
+	<meta charset="UTF-8">		
+<title>HTML5 Example</title>
+
+<style>
+	html,body{margin: 0;padding: 0;}
+</style>
+
+<script src="http://localhost.www/threejs/three.min.js"></script>
+<script src="http://localhost.www/threejs/mrdoob-three.js-f73593b/examples/js/renderers/CanvasRenderer.js"></script>
+<script src="http://localhost.www/threejs/mrdoob-three.js-f73593b/examples/js/renderers/Projector.js"></script>
+
+<script type="text/javascript">
+
+var scene, camera, renderer, cube, material, mesh;
+	function init() {
+		scene = new THREE.Scene();
+
+		camera = new THREE.PerspectiveCamera(75, 
+			window.innerWidth/window.innerHeight,
+			1, 10000);
+		camera.position.z = 1000;
+		scene.add(camera);
+
+		cube = new THREE.CubeGeometry(300,300,300);
+		// material = new THREE.MeshBasicMaterial({color:0x0000ff});
+		material = new THREE.MeshLambertMaterial({color:0x0000ff, wireframe:false});
+		mesh = new THREE.Mesh(cube, material);
+		scene.add(mesh);
+
+		/*var pointLight = new THREE.PointLight(0xffffff);
+		pointLight.position.x = 10;
+		pointLight.position.x = 50;
+		pointLight.position.x = 1000;
+		scene.add(pointLight);*/
+
+		var dLight = new THREE.DirectionalLight(0xffffff);
+		dLight.position.set(0,1,0);
+		scene.add(dLight);
+
+		renderer = new THREE.CanvasRenderer();
+		// renderer = new THREE.WebGLRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+
+		document.body.appendChild(renderer.domElement);
+		animate();
+	}
+
+	function animate(){
+		requestAnimationFrame(animate);
+
+		mesh.rotation.x += 0.02;
+		mesh.rotation.y += 0.02;
+
+		renderer.render(scene, camera);
+	}
+
+</script>
+
+	</head>
+
+	<body onload="init()">
+		
+		
+		
+	</body>
+
+</html>
