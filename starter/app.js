@@ -1,15 +1,26 @@
 "use strict";
 
 import * as THREE from '../three.js-master-r122/build/three.module.js';
+import fragment from './shaders/fragment.glsl';
+import vertex from './shaders/vertex.glsl';
+
 
 export default class Sorabh86 {
 	constructor() {
 		this.time = 0;
-		this.camera = new THREE.PerspectiveCamera( 
-			70, window.innerWidth / window.innerHeight, 0.01, 10 );
-		this.camera.position.z = 1;
-
 		this.scene = new THREE.Scene();
+
+		this.camera = new THREE.PerspectiveCamera( 
+			45, window.innerWidth / window.innerHeight, 0.01, 100 );
+		// this.camera.position.z = 1;
+		this.chelper = new THREE.CameraHelper(this.camera);
+		// this.scene.add(this.chelper);
+
+		this.camera2 = new THREE.PerspectiveCamera(
+			45, window.innerWidth/window.innerHeight,
+			0.01, 100);
+		this.camera2.position.z = 10;
+
 		
 		this.renderer = new THREE.WebGLRenderer( { antialias: true } );
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
@@ -22,12 +33,23 @@ export default class Sorabh86 {
 	}
 
 	addMesh() {
-		let geometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
-		let material = new THREE.MeshNormalMaterial();
+		let geometry = new THREE.PlaneBufferGeometry( 1,1 );
+		let material = new THREE.MeshNormalMaterial({side:THREE.DoubleSide});
+
+		let shaderMaterial = new THREE.ShaderMaterial({
+			fragmentShader:fragment,
+			vertexShader:vertex,
+			uniforms: {
+				progress: {type: "f", value: 0}
+			},
+			side:THREE.DoubleSide
+		})
 
 		let mesh = new THREE.Mesh( geometry, material );
-		this.camera.lookAt(0,0,0);
+		let smesh = new THREE.Points( geometry, shaderMaterial );
+
 		this.scene.add( mesh );
+		this.scene.add( smesh );
 	}
 
 	draw() {
@@ -35,11 +57,12 @@ export default class Sorabh86 {
 		if(this.time == 360) this.time=0;
 
 		let angle = (this.time * Math.PI/180);
-		console.log(this.time, angle);
+		const radiusX = 2;
+		const radiusZ = 2;
 
-		this.camera.position.x = Math.cos(angle);
-		this.camera.position.y = Math.sin(angle);
-		this.camera.position.z = Math.sin(angle) * 1;
+		this.camera.position.x = Math.cos(angle) * radiusX;
+		this.camera.position.y = 0.5;
+		this.camera.position.z = Math.sin(angle) * radiusZ;
 		this.camera.lookAt(0,0);
 
 		this.renderer.render( this.scene, this.camera );
