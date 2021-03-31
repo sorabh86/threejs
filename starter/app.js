@@ -48,7 +48,7 @@ export default class Sorabh86 {
 		let mesh = new THREE.Mesh( geometry, material );
 		let smesh = new THREE.Points( geometry, shaderMaterial );
 
-		this.scene.add( mesh );
+		// this.scene.add( mesh );
 		this.scene.add( smesh );
 	}
 
