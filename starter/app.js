@@ -33,7 +33,7 @@ export default class Sorabh86 {
 	}
 
 	addMesh() {
-		let geometry = new THREE.PlaneBufferGeometry( 1,1 );
+		let geometry = new THREE.PlaneBufferGeometry( 1,1,10,10 );
 		let material = new THREE.MeshNormalMaterial({side:THREE.DoubleSide});
 
 		let shaderMaterial = new THREE.ShaderMaterial({
