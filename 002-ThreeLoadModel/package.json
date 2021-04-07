@@ -1,0 +1,27 @@
+{
+  "name": "javascriptpro",
+  "version": "1.0.0",
+  "description": "Algorithm dev",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorabh86/javascript-projects.git"
+  },
+  "keywords": [
+    "algorithm",
+    "javascript"
+  ],
+  "author": "sorabh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sorabh86/javascript-projects/issues"
+  },
+  "homepage": "https://github.com/sorabh86/javascript-projects#readme",
+  "dependencies": {
+    "gsap": "^3.5.1",
+    "three": "^0.124.0"
+  }
+}

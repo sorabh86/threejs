@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Setup ThreeJS</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		body {overscroll-behavior: none;}
+		canvas {display: block;}
+	</style>
+</head>
+<body>
+	<script src="../three.js-master-r122/build/three.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.min.js"></script> -->
+	<!-- <script src="js/setup.js"></script>
+	<script src="js/boxgeometry.js"></script> -->
+
+<script>
+	
+	class App {
+		constructor() {
+			this.activeRender = false;
+
+			this.scene = new THREE.Scene();
+			this.camera = new THREE.Camera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+			this.camera.z = 5;
+			// this.camera.lookAt(0,0,0);
+
+			this.renderer = new THREE.WebGLRenderer();
+			this.renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(this.renderer.domElement);
+
+			this.render();
+		}
+
+		addObject() {
+			this.mesh = new THREE.Mesh(
+				new THREE.BoxGeometry( 1, 1, 1 ),
+				new THREE.MeshBasicMaterial( {color: 0x00ff00} )
+			);
+
+			this.scene.add(this.mesh);
+		}
+
+		render() {
+			this.renderer.render(this.scene, this.camera);
+			if(this.activeRender) {
+				window.requestAnimationFrame(this.render.bind(this));
+			}
+		}
+	}
+
+	new  App();
+	
+</script>
+</body>
+</html>
